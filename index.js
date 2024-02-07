@@ -27,6 +27,11 @@ async function main() {
 
 main();
 
+/**
+ * Retrieves the list of users that a given GitHub user is following.
+ * @param {string} username - The GitHub username.
+ * @returns {Promise<void>} - A Promise that resolves with the list of following users.
+ */
 async function getFollowing(username) {
   let page = 1;
   let following = [];
@@ -47,6 +52,11 @@ async function getFollowing(username) {
   });
 }
 
+/**
+ * Retrieves all the followers of a given GitHub user.
+ * @param {string} username - The GitHub username.
+ * @returns {Promise<void>} - A promise that resolves when all the followers are fetched.
+ */
 async function getFollowers(username) {
   let page = 1;
   let followers = [];
