@@ -7,6 +7,9 @@
  * 4. Identify users whom we are not following back.
  */
 
+let following = [];
+let followers = [];
+
 async function main() {
   // get username from command line arguments
   const username = process.argv[2];
@@ -17,12 +20,16 @@ async function main() {
   }
 
   // get followers
-  console.log("Followers:");
+  console.log("\nFollowers:\n");
   await getFollowing(username);
 
   // get following
-  console.log("Following:");
+  console.log("\nFollowing:\n");
   await getFollowers(username);
+
+  // get users who are not following us back
+  console.log("Users who are not following us back:");
+  await getNotFollowingBack();
 }
 
 main();
@@ -34,7 +41,6 @@ main();
  */
 async function getFollowing(username) {
   let page = 1;
-  let following = [];
   while (true) {
     const response = await fetch(
       `https://api.github.com/users/${username}/following?page=${page}`
@@ -59,7 +65,6 @@ async function getFollowing(username) {
  */
 async function getFollowers(username) {
   let page = 1;
-  let followers = [];
 
   while (true) {
     const response = await fetch(
@@ -77,5 +82,13 @@ async function getFollowers(username) {
 
   followers.map((user, index) => {
     console.log(`${index + 1}. ${user.login} - ${user.html_url}`);
+  });
+}
+
+async function getNotFollowingBack() {
+  following.filter((user) => {
+    if (!followers.includes(user)) {
+      console.log(user.login);
+    }
   });
 }
