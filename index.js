@@ -30,6 +30,9 @@ async function main() {
   // get users who are not following us back
   console.log("Users who are not following us back:");
   await getNotFollowingBack();
+
+  // console.log("following array", following);
+  // console.log("followers array", followers);
 }
 
 main();
@@ -86,9 +89,13 @@ async function getFollowers(username) {
 }
 
 async function getNotFollowingBack() {
-  following.filter((user) => {
-    if (!followers.includes(user)) {
-      console.log(user.login);
-    }
+  const notFollowingBack = following.filter((following) => {
+    return !followers.find((follower) => {
+      return follower.login === following.login;
+    });
+  });
+
+  notFollowingBack.map((user, index) => {
+    console.log(`${index + 1}. ${user.login} - ${user.html_url}`);
   });
 }
