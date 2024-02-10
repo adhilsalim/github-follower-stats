@@ -28,11 +28,12 @@ async function main() {
   await getFollowers(username);
 
   // get users who are not following us back
-  console.log("Users who are not following us back:");
-  await getNotFollowingBack();
+  console.log("\nUsers who are not following us back:\n");
+  await getNotFollowingBack("notFollowingBack");
 
-  // console.log("following array", following);
-  // console.log("followers array", followers);
+  // get users whom we are not following back
+  console.log("\nUsers whom we are not following back:\n");
+  await getNotFollowingBack("notFollowedByUser");
 }
 
 main();
@@ -88,14 +89,19 @@ async function getFollowers(username) {
   });
 }
 
-async function getNotFollowingBack() {
-  const notFollowingBack = following.filter((following) => {
-    return !followers.find((follower) => {
-      return follower.login === following.login;
+async function getNotFollowingBack(actionType) {
+  if ((actionType = "notFollowingBack")) {
+    const notFollowingBack = following.filter((following) => {
+      return !followers.find((follower) => {
+        return follower.login === following.login;
+      });
     });
-  });
 
-  notFollowingBack.map((user, index) => {
-    console.log(`${index + 1}. ${user.login} - ${user.html_url}`);
-  });
+    notFollowingBack.map((user, index) => {
+      console.log(`${index + 1}. ${user.login} - ${user.html_url}`);
+    });
+  } else if ((actionType = "notFollowedByUser")) {
+  } else {
+    console.log("Please provide a valid action type.");
+  }
 }
