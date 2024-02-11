@@ -90,7 +90,7 @@ async function getFollowers(username) {
 }
 
 async function getNotFollowingBack(actionType) {
-  if ((actionType = "notFollowingBack")) {
+  if (actionType == "notFollowingBack") {
     const notFollowingBack = following.filter((following) => {
       return !followers.find((follower) => {
         return follower.login === following.login;
@@ -100,7 +100,16 @@ async function getNotFollowingBack(actionType) {
     notFollowingBack.map((user, index) => {
       console.log(`${index + 1}. ${user.login} - ${user.html_url}`);
     });
-  } else if ((actionType = "notFollowedByUser")) {
+  } else if (actionType == "notFollowedByUser") {
+    const notFollowingBack = followers.filter((follower) => {
+      return !following.find((following) => {
+        return following.login === follower.login;
+      });
+    });
+
+    notFollowingBack.map((user, index) => {
+      console.log(`${index + 1}. ${user.login} - ${user.html_url}`);
+    });
   } else {
     console.log("Please provide a valid action type.");
   }
