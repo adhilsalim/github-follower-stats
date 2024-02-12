@@ -89,6 +89,12 @@ async function getFollowers(username) {
   });
 }
 
+/**
+ * Retrieves the list of users who are not following back based on the specified action type.
+ *
+ * @param {string} actionType - The type of action to perform. Possible values are "notFollowingBack" and "notFollowedByUser".
+ * @returns {void}
+ */
 async function getNotFollowingBack(actionType) {
   if (actionType == "notFollowingBack") {
     const notFollowingBack = following.filter((following) => {
