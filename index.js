@@ -20,19 +20,19 @@ async function main() {
   }
 
   // get followers
-  console.log("\nFollowers:\n");
+  console.log("\nUsers you are following:\n");
   await getFollowing(username);
 
   // get following
-  console.log("\nFollowing:\n");
+  console.log("\nUsers following you:\n");
   await getFollowers(username);
 
   // get users who are not following us back
-  console.log("\nUsers who are not following us back:\n");
+  console.log("\nUsers who are not following you back:\n");
   await getNotFollowingBack("notFollowingBack");
 
   // get users whom we are not following back
-  console.log("\nUsers whom we are not following back:\n");
+  console.log("\nUsers whom you are not following back:\n");
   await getNotFollowingBack("notFollowedByUser");
 }
 
